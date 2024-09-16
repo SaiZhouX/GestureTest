@@ -1,0 +1,49 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\lost_\\.ohos\\config\\default_GestureTest_377gjUF7HeWQhwxIU5IDG76HLPjEIOK1Di0sNttz390=.cer",
+          "storePassword": "0000001B4D9B83642D00E9E2280CE58105A12E9270B5F0631FB2406D7A48A824070494B79F2B219007DE97",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BE31D7BA9A27BF923BDF0348556391E7087EF95476C7FD22AC9B83E21A2B110B18C2C94AC662061",
+          "profile": "C:\\Users\\lost_\\.ohos\\config\\default_GestureTest_377gjUF7HeWQhwxIU5IDG76HLPjEIOK1Di0sNttz390=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\lost_\\.ohos\\config\\default_GestureTest_377gjUF7HeWQhwxIU5IDG76HLPjEIOK1Di0sNttz390=.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}
