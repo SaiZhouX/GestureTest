@@ -49,7 +49,7 @@ export struct ImageItemView {
    * @returns image.Size
    */
   calcImageDefaultSize(imageWHRatio: number, size: window.Size): image.Size {
-    console.info("imageUri=" + this.imageUri)
+    console.info("imageUri=" + this.imageUri + ",fitWH=" + this.fitWH)
     console.info("imageWHRatio=" + imageWHRatio + ",size=" + size);
     let width = 0
     let height = 0;
@@ -92,8 +92,22 @@ export struct ImageItemView {
     // 获取resourceManager资源管理器
     const resourceMgr: resourceManager.ResourceManager = context.resourceManager;
     //此处'test.jpg'仅作示例，请开发者自行替换，否则imageSource创建失败会导致后续无法正常执行。
-    resourceMgr.getRawFd('imageviewer_test1.jpg').then((rawFileDescriptor: resourceManager.RawFileDescriptor) => {
+    resourceMgr.getRawFd('map.png').then((rawFileDescriptor: resourceManager.RawFileDescriptor) => {
       const imageSource: image.ImageSource = image.createImageSource(rawFileDescriptor);
+      imageSource.getImageInfo(0).then((data: image.ImageInfo) => {
+        this.imageWHRatio = data.size.width / data.size.height;
+        this.imageDefaultSize = this.calcImageDefaultSize(this.imageWHRatio, windowSizeManager.get());
+        if (this.imageDefaultSize.width === windowSizeManager.get().width) {
+          this.fitWH = "width";
+        } else {
+          this.fitWH = "height";
+        }
+        this.imageScaleInfo.maxScaleValue += this.fitWH === "width" ?
+          (windowSizeManager.get().height / this.imageDefaultSize.height) :
+          (windowSizeManager.get().width / this.imageDefaultSize.width);
+      }).catch((err: BusinessError) => {
+        console.error(`[error][getImageInfo]${err.message}`);
+      });
       imageSource.createPixelMap().then((data: image.PixelMap) => {
         this.imagePixelMap = data;
       }).catch((err: BusinessError) => {
@@ -109,33 +123,6 @@ export struct ImageItemView {
     this.imageScaleInfo.reset();
     this.imageOffsetInfo.reset();
   }
-
-  // initCurrentImageInfo(): void {
-  //   this.matrix = matrix4.identity().copy();
-  //   const imageSource: image.ImageSource = image.createImageSource(this.imageUri);
-  //   imageSource.getImageInfo(0).then((data: image.ImageInfo) => {
-  //     this.imageWHRatio = data.size.width / data.size.height;
-  //     this.imageDefaultSize = this.calcImageDefaultSize(this.imageWHRatio, windowSizeManager.get());
-  //     if (this.imageDefaultSize.width === windowSizeManager.get().width) {
-  //       this.fitWH = "width";
-  //     } else {
-  //       this.fitWH = "height";
-  //     }
-  //     this.imageScaleInfo.maxScaleValue += this.fitWH === "width" ?
-  //       (windowSizeManager.get().height / this.imageDefaultSize.height) :
-  //       (windowSizeManager.get().width / this.imageDefaultSize.width);
-  //   }).catch((err: BusinessError) => {
-  //     console.error(`[error][getImageInfo]${err.message}`);
-  //   });
-  //   imageSource.createPixelMap().then((data: image.PixelMap) => {
-  //     this.imagePixelMap = data;
-  //   }).catch((err: BusinessError) => {
-  //     console.error(`[error][createPixelMap]${err.message}`);
-  //   });
-  //   this.isEnableOffset = false;
-  //   this.imageScaleInfo.reset();
-  //   this.imageOffsetInfo.reset();
-  // }
 
   /**
    * 在图片消失时，将当前图片的信息设置为默认值
