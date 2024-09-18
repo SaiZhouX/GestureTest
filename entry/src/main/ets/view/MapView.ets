@@ -1,4 +1,4 @@
-import { promptAction } from '@kit.ArkUI';
+import { BtnCompont } from '../compont/BtnCompont';
 
 @Component
 export struct MapView {
@@ -7,29 +7,20 @@ export struct MapView {
   @State positionX: number = 0;
   @State positionY: number = 0;
   @State scaleValue: number = 1;
+  @State nIndex:number = 0;
+  @State btnName: string = "";
+  btn_arr: string[] = ["1,江南,-20,250", "2,岭南,150,150", "3,中原,-30,100", "4,西夷,0,-50", "5,西域,-150,-200", "6,塞北,-150,50", "7,辽东,-300,250"];
 
   build() {
     Stack() {
-      Button("江南")
-        .margin({ left: 250 })
-        .onClick(() => {
-          promptAction.showToast({ message: "江南" })
+      ForEach(this.btn_arr, (item: string) => {
+        BtnCompont({
+          nIndex: parseInt(this.getBtnInfo(item)[0]),
+          btnName: this.getBtnInfo(item)[1],
+          mTop: parseInt(this.getBtnInfo(item)[2]),
+          mLeft: parseInt(this.getBtnInfo(item)[3])
         })
-      Button("塞北")
-        .margin({ top: -150, left: 50 })
-        .onClick(() => {
-          promptAction.showToast({ message: "塞北" })
-        })
-      Button("岭南")
-        .margin({ top: 150, left: 150 })
-        .onClick(() => {
-          promptAction.showToast({ message: "岭南" })
-        })
-      Button("西域")
-        .margin({ top: -150, left: -200 })
-        .onClick(() => {
-          promptAction.showToast({ message: "西域" })
-        })
+      }, (item: string) => item.toString());
     }
     .width('100%')
     .height(500)
@@ -70,5 +61,10 @@ export struct MapView {
       )
     )
     .border({ width: 1, color: Color.Green })
+    .margin({top:150})
+  }
+
+  getBtnInfo(item: string): string[] {
+    return item.split(",");
   }
 }

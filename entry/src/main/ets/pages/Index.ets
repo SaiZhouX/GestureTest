@@ -13,5 +13,6 @@ struct Index {
         .clip(true)
         .border({ width: 1, color: Color.Red });
     }
+    .border({ width: 3, color: Color.Yellow })
   }
 }
