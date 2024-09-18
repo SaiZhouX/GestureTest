@@ -32,8 +32,17 @@ struct Index {
           // 在组件上绑定布局位置信息
         .translate({ x: this.offsetX, y: this.offsetY, z: 0 })
         .gesture(
-          // 声明该组合手势的类型为Sequence类型
+          // 声明该组合手势的类型为Parallel类型
           GestureGroup(GestureMode.Parallel,
+            // 绑定双击手势(放大/缩小)
+            TapGesture({ count: 2 })
+              .onAction(() => {
+                if (this.scaleValue != 1) {
+                  this.scaleValue = 1;
+                } else {
+                  this.scaleValue = 5;
+                }
+              }),
             // 在组件上绑定2指触发的捏合手势
             PinchGesture({ fingers: 2 })
               .onActionStart((event: GestureEvent) => {
