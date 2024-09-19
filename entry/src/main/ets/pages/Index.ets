@@ -1,5 +1,4 @@
-import { display } from '@kit.ArkUI';
-import { MapView } from '../view/MapView';
+import { MapCompont } from '../compont/MapCompont';
 
 @Entry
 @Component
@@ -9,7 +8,7 @@ struct Index {
   build() {
     Column() {
       //ImageViewerView().border({width:1,color:Color.Red});
-      MapView({ containerHeight: this.containerHeight })
+      MapCompont({ containerHeight: this.containerHeight })
         .clip(true)
         .width('100%')
         .height('100%')

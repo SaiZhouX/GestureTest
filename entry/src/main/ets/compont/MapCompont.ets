@@ -1,9 +1,9 @@
-import { BtnCompont } from '../compont/BtnCompont';
+import { BtnCompont } from './BtnCompont';
 import { display } from '@kit.ArkUI';
 import { ImageViewerConstants } from '../constants/ImageViewerConstants';
 
 @Component
-export struct MapView {
+export struct MapCompont {
   @Prop containerHeight:number;
 
   @State offsetX: number = 0;
@@ -20,17 +20,6 @@ export struct MapView {
   private btn_arr: string[] =
     ["1,江南,-20,250", "2,岭南,150,150", "3,中原,-30,100", "4,西夷,0,-50", "5,西域,-150,-200", "6,塞北,-150,50",
       "7,辽东,-300,250"];
-  private screenWidth: number = 0; // 屏幕宽度
-  private screenHeight: number = 0; // 屏幕高度
-
-  aboutToAppear(): void {
-    // 获取屏幕宽高
-    let displayClass: display.Display | null = null;
-    displayClass = display.getDefaultDisplaySync();
-    this.screenWidth = px2vp(displayClass.width);
-    this.screenHeight = px2vp(displayClass.height);
-    console.debug("aboutToAppearaboutToAppear screenWidth =" + this.screenWidth + ",screenHeight=" + this.screenHeight)
-  }
 
   build() {
     Stack() {
@@ -47,10 +36,10 @@ export struct MapView {
     .height(ImageViewerConstants.MAP_VIEW_HEIGHT)
     .backgroundImage($r('app.media.map'))
     .backgroundImageSize(ImageSize.FILL)
-    .scale({ x: this.scaleValue, y: this.scaleValue, z: 1 }) // 在组件上绑定布局位置信息
-    .translate({ x: this.offsetX, y: this.offsetY, z: 0 })
+    .scale({ x: this.scaleValue, y: this.scaleValue, z: 1 })
+    .translate({ x: this.offsetX, y: this.offsetY, z: 0 })// 在组件上绑定布局位置信息
     .gesture(
-      // 声明该组合手势的类型为Parallel类型
+      // 声明该组合手势的类型为Exclusive类型
       GestureGroup(GestureMode.Exclusive,
         // 绑定双击手势(放大/缩小)
         TapGesture({ count: 2 })
