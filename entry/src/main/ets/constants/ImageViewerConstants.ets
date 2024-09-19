@@ -20,4 +20,6 @@ export class ImageViewerConstants {
   static readonly SWIPER_CACHE_COUNT: number = 2;
   // 测试文件名称
   static readonly IMAGE_NAME: string = "imageviewer_test1.jpg";
+
+  static readonly MAP_VIEW_HEIGHT: number = 500;
 }
