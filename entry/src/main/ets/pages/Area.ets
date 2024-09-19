@@ -1,4 +1,4 @@
-import { router } from '@kit.ArkUI';
+import { RectShape, router } from '@kit.ArkUI';
 import { DataModel } from '../compont/BtnCompont';
 
 @Entry
@@ -17,10 +17,11 @@ struct Area {
         Text("222");
         Text("333");
         Image($r('app.media.map'))
-          .width('100%')
-          .height('100%')
+          .border({ width: 5, color: Color.Red })
+          .width("100%")
+          .height("100%")
           .clip(true)
-          .clipShape(new Rect({width: '500px', height: '280px' }))
+          .clipShape(new RectShape({ width: 300, height: 300 }).position({ x: 100, y: 200 }))
       }
     }
     .backgroundImage($r('app.media.foreground'))
