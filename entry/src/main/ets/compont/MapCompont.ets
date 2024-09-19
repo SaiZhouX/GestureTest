@@ -4,8 +4,7 @@ import { ImageViewerConstants } from '../constants/ImageViewerConstants';
 
 @Component
 export struct MapCompont {
-  @Prop containerHeight:number;
-
+  @Prop containerHeight: number;
   @State offsetX: number = 0;
   @State offsetY: number = 0;
   @State positionX: number = 0;
@@ -16,10 +15,9 @@ export struct MapCompont {
   @State pinchY: number = 0;
   @State nIndex: number = 0;
   @State btnName: string = "";
-
   private btn_arr: string[] =
-    ["1,江南,-20,250", "2,岭南,150,150", "3,中原,-30,100", "4,西夷,0,-50", "5,西域,-150,-200", "6,塞北,-150,50",
-      "7,辽东,-300,250"];
+    ["1,江南,290,220", "2,岭南,250,300", "3,中原,210,200", "4,西夷,160,270", "5,西域,70,170", "6,塞北,170,160",
+      "7,辽东,280,90"];
 
   build() {
     Stack() {
@@ -27,8 +25,9 @@ export struct MapCompont {
         BtnCompont({
           nIndex: parseInt(this.getBtnInfo(item)[0]),
           btnName: this.getBtnInfo(item)[1],
-          mTop: parseInt(this.getBtnInfo(item)[2]),
-          mLeft: parseInt(this.getBtnInfo(item)[3])
+          nX: parseInt(this.getBtnInfo(item)[2]),
+          nY: parseInt(this.getBtnInfo(item)[3]),
+          containerHeight: this.containerHeight
         })
       }, (item: string) => item.toString());
     }
@@ -37,7 +36,7 @@ export struct MapCompont {
     .backgroundImage($r('app.media.map'))
     .backgroundImageSize(ImageSize.FILL)
     .scale({ x: this.scaleValue, y: this.scaleValue, z: 1 })
-    .translate({ x: this.offsetX, y: this.offsetY, z: 0 })// 在组件上绑定布局位置信息
+    .translate({ x: this.offsetX, y: this.offsetY, z: 0 }) // 在组件上绑定布局位置信息
     .gesture(
       // 声明该组合手势的类型为Exclusive类型
       GestureGroup(GestureMode.Exclusive,

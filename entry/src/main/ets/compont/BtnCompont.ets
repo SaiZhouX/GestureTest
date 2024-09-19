@@ -5,15 +5,17 @@ import { promptAction, router } from '@kit.ArkUI'
 export struct BtnCompont {
   @Prop nIndex: number;
   @Prop btnName: string;
-  @Prop mTop: number;
-  @Prop mLeft: number;
+  @Prop nX: number;
+  @Prop nY: number;
+  @Prop containerHeight: number;
 
   build() {
     Button(this.btnName)
       .fontColor(Color.Blue)
       .stateEffect(false)// 无点击效果
       .backgroundColor('#00000000')// 背景色设置为透明
-      .margin({ top: this.mTop, left: this.mLeft })
+      .position({x:this.nX,y:this.nY})
+      // .margin({ top: this.mTop, left: this.mLeft })
       .onClick(() => {
         promptAction.showToast({ message: this.btnName })
         this.JumpClick()
@@ -21,13 +23,14 @@ export struct BtnCompont {
   }
 
   JumpClick() {
-    let paramsInfo: DataModel = {
-      id: "123"
-    };
-
     router.pushUrl({
       url: 'pages/Area', // 目标url
-      params: {nIndex:this.nIndex }
+      params: {
+        nIndex: this.nIndex,
+        nX: this.nX,
+        nY: this.nY,
+        containerHeight: this.containerHeight
+      }
     }, router.RouterMode.Standard, (err) => {
       if (err) {
         console.error(`Invoke pushUrl failed, code is ${err.code}, message is ${err.message}`);
