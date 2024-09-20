@@ -24,7 +24,7 @@ export struct BtnCompont {
 
   JumpClick() {
     router.pushUrl({
-      url: 'pages/Area', // 目标url
+      url: 'pages/AreaPage', // 目标url
       params: {
         nIndex: this.nIndex,
         nX: this.nX,
