@@ -5,6 +5,8 @@
 @Component
 export struct GridShowGraduallyCompont {
   @Prop arr: string[];
+  @Prop fontSize: number;
+  // @Prop fontStyle: enum;
   @Prop back_color: string;
   @Prop duration: number;
   @Prop interval: number;
@@ -26,7 +28,7 @@ export struct GridShowGraduallyCompont {
           Stack() {
             Text(item)
               .fontStyle(FontStyle.Italic)
-              .fontSize(36)
+              .fontSize(this.fontSize)
           }
           // .border({ width: 1, color: Color.Red })
           .size({ width: 50, height: 50 })
@@ -39,9 +41,9 @@ export struct GridShowGraduallyCompont {
         // 消失时，如果不对方格的所有父控件添加转场效果，则方格的消失转场不会生效
         // 此处让方格的父控件在出现消失转场时一直以0.99的透明度显示，使得方格的转场效果不受影响
         .transition(TransitionEffect.opacity(0.99))
-      }, (item: number) => item.toString())
+      }, (item: string) => item.toString())
     }
-    .border({ width: 2, color: Color.Red })
+    // .border({ width: 2, color: Color.Red })
     .columnsTemplate(this.columnsTemplate)
     .rowsTemplate(this.rowsTemplate)
     .rowsGap(this.rowsGap)
