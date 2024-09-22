@@ -17,12 +17,23 @@ struct AreaPage {
   @State titleArr: string[] = Array.from("忆江南");
   @State poetryArr: string[] = Array.from("江南好，风景旧曾谙。日出江花红胜火，春来江水绿如蓝。能不忆江南？");
   @State containerWidth: number = 0;
-  arr: string[][] =
-    [Array.from("江南好，"), Array.from("风景旧曾谙。"), Array.from("日出江花红胜火，"), Array.from("春来江水绿如蓝。"),
-      Array.from("能不忆江南？")];
+  arr: string[][] = [];
 
   aboutToAppear(): void {
-    console.info("nIndex=" + this.nIndex + ",nX=" + this.nX + ",nY=" + this.nY)
+    this.createArr();
+  }
+
+  private createArr() {
+    let sentence: string[] = [];
+    let poem: string = "江南好,风景旧曾谙。日出江花红胜火,春来江水绿如蓝。能不忆江南？";
+    let lines = poem.split(/[,。？]/); // 使用正则表达式作为分隔符，然后过滤空行
+    for (let i = 0; i < lines.length - 1; i++) {
+      if (sentence.length != 0) {
+        sentence = [];
+      }
+      sentence = Array.from(lines[i]);
+      this.arr.push(sentence);
+    }
   }
 
   onPageShow(): void {
