@@ -1,4 +1,4 @@
-import { RectShape, router } from '@kit.ArkUI';
+import { promptAction, RectShape, router } from '@kit.ArkUI';
 import { GridShowGraduallyCompont } from '../compont/GridShowGraduallyCompont';
 import { ImageViewerConstants } from '../constants/ImageViewerConstants';
 
@@ -25,8 +25,9 @@ struct AreaPage {
 
   private createArr() {
     let sentence: string[] = [];
-    let poem: string = "江南好,风景旧曾谙。日出江花红胜火,春来江水绿如蓝。能不忆江南？";
-    let lines = poem.split(/[,。？]/); // 使用正则表达式作为分隔符，然后过滤空行
+    let poem: string = "江南好, 风景旧曾谙。 日出江花红胜火, 春来江水绿如蓝。 能不忆江南？ ";
+    // let lines = poem.split(/[,。？]/); // 使用正则表达式作为分隔符，然后过滤空行
+    let lines = poem.split(" ")
     for (let i = 0; i < lines.length - 1; i++) {
       if (sentence.length != 0) {
         sentence = [];
@@ -51,7 +52,7 @@ struct AreaPage {
         Column() {
           GridShowGraduallyCompont({
             arr: this.titleArr,
-            fontSize: 36,
+            fontSize: 32,
             back_color: '#00000000',
             duration: 3000,
             interval: 1500,
@@ -62,12 +63,12 @@ struct AreaPage {
             gridWidth: 180,
             gridHeight: 60
           })
-            .position({ x: (this.containerWidth - 180) / 2, y: 50 })
+            .position({ x: 30, y: 0 })
 
           ForEach(this.arr, (item: string[], index: number) => {
             GridShowGraduallyCompont({
               arr: item,
-              fontSize: 30,
+              fontSize: 28,
               back_color: '#00000000',
               duration: 3000,
               interval: 1500,
@@ -76,12 +77,24 @@ struct AreaPage {
               rowsGap: 0,
               columnsGap: 0,
               gridWidth: 400,
-              gridHeight: 60
+              gridHeight: 50
             })
-              .position({ x: (this.containerWidth - 400) / 2, y: 50 + 50 * (index + 1) })
+              .position({ x: (this.containerWidth - 400) / 2, y: 20 + 30 * (index + 1) })
           }, (item: string) => item.toString())
         }
       }
+
+      Text($r('app.string.find_more')).onClick(() => {
+        promptAction.showToast({ message: "more onClick" })
+      })
+        .fontSize(32)
+        .border({
+          width: 5,
+          color: 0x317AF7,
+          radius: 10,
+          style: BorderStyle.Dashed
+        })
+        .position({ x: 250, y: 450 })
     }
     .width('100%')
     .backgroundImage($r('app.media.jiangnan'))

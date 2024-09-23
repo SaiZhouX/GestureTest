@@ -39,6 +39,10 @@
     {
       "name": "imageviewer_full_size",
       "value": "100%"
+    },
+    {
+      "name": "find_more",
+      "value": "探寻江南"
     }
   ]
 }
